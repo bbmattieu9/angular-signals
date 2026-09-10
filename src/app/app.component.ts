@@ -20,5 +20,4 @@ import {MessagesComponent} from "./messages/messages.component";
 })
 export class AppComponent {
 
-
 }
