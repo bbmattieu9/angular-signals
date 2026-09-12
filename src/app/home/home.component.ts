@@ -9,6 +9,7 @@ import {catchError, from, throwError} from "rxjs";
 import {toObservable, toSignal, outputToObservable, outputFromObservable} from "@angular/core/rxjs-interop";
 import {CoursesServiceWithFetch} from "../services/courses-fetch.service";
 import {openEditCourseDialog} from "../edit-course-dialog/edit-course-dialog.component";
+import {LoadingService} from "../loading/loading.service";
 
 
 type Counter = {
@@ -27,6 +28,7 @@ type Counter = {
 })
 export class HomeComponent implements OnInit {
 
+  loadingSrv = inject(LoadingService);
   dialog = inject(MatDialog);
   coursesService = inject(CoursesService);
 
@@ -58,6 +60,7 @@ export class HomeComponent implements OnInit {
 
   async loadCourses() {
     try {
+
       const courses = await this.coursesService.loadAllCourses();
       this.#courses.set(courses.sort(sortCoursesBySeqNo));
     } catch (err) {
@@ -67,6 +70,10 @@ export class HomeComponent implements OnInit {
   }
 
   onCourseUpdated(updatedCourse: Course) {
+
+    if (!updatedCourse) {
+      return;
+    }
     const courses = this.#courses();
     const newCourses = courses.map(course => (
       course.id === updatedCourse.id ? updatedCourse : course
