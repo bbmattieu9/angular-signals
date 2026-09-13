@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
 
   loadingSrv = inject(LoadingService);
   dialog = inject(MatDialog);
+  messagesSrv = inject(MessagesService);
   coursesService = inject(CoursesService);
 
   #courses = signal<Course[]>([]);
@@ -64,6 +65,10 @@ export class HomeComponent implements OnInit {
       const courses = await this.coursesService.loadAllCourses();
       this.#courses.set(courses.sort(sortCoursesBySeqNo));
     } catch (err) {
+      this.messagesSrv.showMessage(
+        "Error loading courses.",
+        "error"
+      )
       alert(`Error loading courses`);
       console.error(err);
     }
