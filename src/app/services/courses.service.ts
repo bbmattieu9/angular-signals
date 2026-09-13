@@ -4,7 +4,7 @@ import {environment} from "../../environments/environment";
 import {firstValueFrom} from "rxjs";
 import {Course} from "../models/course.model";
 import {GetCoursesResponse} from "../models/get-courses.response";
-import {SkipLoading} from "../loading/skip-loading.component";
+import {MessagesService} from "../messages/messages.service";
 
 
 @Injectable({
@@ -13,6 +13,7 @@ import {SkipLoading} from "../loading/skip-loading.component";
 export class CoursesService {
 
   env = environment;
+
   httpMessenger = inject(HttpClient);
 
   async loadAllCourses(): Promise<Course[]> {
