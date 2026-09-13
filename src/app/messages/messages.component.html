@@ -4,7 +4,7 @@
     <div class="message" [ngClass]="message()?.severity">
       {{ message()?.text }}
     </div>
-    <img src="/assets/icons/close.svg" alt="close-icon" (click)="onClose()">
+    <img src="/assets/icons/close.svg" alt="close-icon" (click)="onClose()" class="close">
   </div>
 }
 

@@ -69,8 +69,6 @@ export class HomeComponent implements OnInit {
         "Error loading courses.",
         "error"
       )
-      alert(`Error loading courses`);
-      console.error(err);
     }
   }
 
