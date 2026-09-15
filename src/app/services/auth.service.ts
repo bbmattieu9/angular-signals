@@ -13,9 +13,31 @@ const USER_STORAGE_KEY = 'user';
 export class AuthService {
 
   httpMessenger = inject(HttpClient);
+  router = inject(Router);
   #userSignal = signal<User | null>(null);
   user = this.#userSignal.asReadonly();
   isLoggedIn = computed(() => !!this.user());
+
+
+ constructor() {
+  this.loadUserFromStorage();
+
+  effect(() => {
+    const user = this.user();
+
+    if (user) {
+      localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
+    }
+  });
+}
+
+  loadUserFromStorage() {
+    const json = localStorage.getItem(USER_STORAGE_KEY);
+    if (json) {
+      const user = JSON.parse(json);
+      this.#userSignal.set(user);
+    }
+  }
 
   async login(email: string, password: string): Promise<User> {
     const login$ = this.httpMessenger.post<User>(`${environment.apiRoot}/login`, {
@@ -25,6 +47,12 @@ export class AuthService {
     const user = await firstValueFrom(login$);
     this.#userSignal.set(user);
     return user;
+  }
+
+  async logout() {
+    localStorage.removeItem(USER_STORAGE_KEY);
+    this.#userSignal.set(null);
+    await this.router.navigateByUrl("/login");
   }
 
 
