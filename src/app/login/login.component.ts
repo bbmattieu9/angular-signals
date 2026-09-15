@@ -15,6 +15,8 @@ import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 })
 export class LoginComponent {
 
+  authSrv = inject(AuthService);
+  router = inject(Router);
   messagesSrv = inject(MessagesService);
 
   fb = inject(FormBuilder);
@@ -23,7 +25,7 @@ export class LoginComponent {
     password: ['']
   })
 
-  onLogin() {
+  async onLogin() {
     try {
       const {email, password} = this.form.value;
        if (!email || !password) {
@@ -31,7 +33,11 @@ export class LoginComponent {
            "Enter an email and password",
            "info"
          )
+         return;
        }
+
+       await this.authSrv.login(email, password);
+       await this.router.navigate(['/home']);
 
     }
     catch (err) {
