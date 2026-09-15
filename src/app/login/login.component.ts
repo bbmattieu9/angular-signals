@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {Router, RouterLink} from "@angular/router";
-import {AuthService} from "../services/auth.service";
-import {MessagesService} from "../messages/messages.service";
+import {AuthService} from "@app/services/auth.service";
+import {MessagesService} from "@app/messages/messages.service";
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 
 @Component({

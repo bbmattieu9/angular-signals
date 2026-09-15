@@ -1,10 +1,10 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient, HttpContext} from "@angular/common/http";
-import {environment} from "../../environments/environment";
+import {environment} from "@environments/environment";
 import {firstValueFrom} from "rxjs";
-import {Course} from "../models/course.model";
-import {GetCoursesResponse} from "../models/get-courses.response";
-import {MessagesService} from "../messages/messages.service";
+import {Course} from "@app/models/course.model";
+import {GetCoursesResponse} from "@app/models/get-courses.response";
+import {MessagesService} from "@app/messages/messages.service";
 
 
 @Injectable({

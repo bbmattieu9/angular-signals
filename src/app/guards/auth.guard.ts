@@ -1,6 +1,6 @@
 import {ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot} from "@angular/router";
 import {inject} from "@angular/core";
-import {AuthService} from "../services/auth.service";
+import {AuthService} from "@app/services/auth.service";
 
 export const isUserAuthenticated: CanActivateFn =
   (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {

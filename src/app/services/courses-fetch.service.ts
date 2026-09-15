@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
-import {environment} from "../../environments/environment";
-import {Course} from "../models/course.model";
+import {environment} from "@environments/environment";
+import {Course} from "@app/models/course.model";
 import {response} from "express";
 
 

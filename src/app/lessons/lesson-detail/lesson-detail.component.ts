@@ -1,8 +1,8 @@
 import {Component, inject, input, output} from '@angular/core';
-import {Lesson} from "../../models/lesson.model";
+import {Lesson} from "@app/models/lesson.model";
 import {ReactiveFormsModule} from "@angular/forms";
-import {LessonsService} from "../../services/lessons.service";
-import {MessagesService} from "../../messages/messages.service";
+import {LessonsService} from "@app/services/lessons.service";
+import {MessagesService} from "@app/messages/messages.service";
 
 @Component({
     selector: 'lesson-detail',

@@ -1,15 +1,15 @@
 import {Component, computed, effect, inject, Injector, OnInit, signal} from '@angular/core';
-import {CoursesService} from "../services/courses.service";
-import {Course, sortCoursesBySeqNo} from "../models/course.model";
+import {CoursesService} from "@app/services/courses.service";
+import {Course, sortCoursesBySeqNo} from "@app/models/course.model";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
-import {CoursesCardListComponent} from "../courses-card-list/courses-card-list.component";
+import {CoursesCardListComponent} from "@app/courses-card-list/courses-card-list.component";
 import {MatDialog} from "@angular/material/dialog";
-import {MessagesService} from "../messages/messages.service";
+import {MessagesService} from "@app/messages/messages.service";
 import {catchError, from, throwError} from "rxjs";
 import {toObservable, toSignal, outputToObservable, outputFromObservable} from "@angular/core/rxjs-interop";
-import {CoursesServiceWithFetch} from "../services/courses-fetch.service";
-import {openEditCourseDialog} from "../edit-course-dialog/edit-course-dialog.component";
-import {LoadingService} from "../loading/loading.service";
+import {CoursesServiceWithFetch} from "@app/services/courses-fetch.service";
+import {openEditCourseDialog} from "@app/edit-course-dialog/edit-course-dialog.component";
+import {LoadingService} from "@app/loading/loading.service";
 
 
 type Counter = {

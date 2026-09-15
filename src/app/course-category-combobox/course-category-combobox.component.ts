@@ -1,5 +1,5 @@
 import {Component, input, model} from '@angular/core';
-import {CourseCategory} from "../models/course-category.model";
+import {CourseCategory} from "@app/models/course-category.model";
 
 @Component({
   selector: 'course-category-combobox',

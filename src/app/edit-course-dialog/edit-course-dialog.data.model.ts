@@ -1,4 +1,4 @@
-import {Course} from "../models/course.model";
+import {Course} from "@app/models/course.model";
 
 
 export type EditCourseDialogData = {
