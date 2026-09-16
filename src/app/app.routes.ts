@@ -5,12 +5,24 @@ import {LessonsComponent} from "@app/lessons/lessons.component";
 import {ResourceDemoComponent} from "@app/resource-demo/resource-demo.component";
 import {LinkedSignalDemoComponent} from "@app/linked-signal/linked-signal-demo.component";
 import {isUserAuthenticated} from "@app/guards/auth.guard";
+import {CourseComponent} from "@app/course/course.component";
+import {courseResolver} from "@app/course/course-resolver";
+import {courseLessonResolver} from "@app/course/course-lesson.resolver";
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     canActivate: [isUserAuthenticated]
+  },
+  {
+    path: 'courses/:courseId',
+    component: CourseComponent,
+    canActivate: [isUserAuthenticated],
+    resolve: {
+      course: courseResolver,
+      lessons: courseLessonResolver
+    }
   },
   {
     path: "login",
@@ -21,7 +33,7 @@ export const routes: Routes = [
     component: LessonsComponent
   },
   {
-    path:"shopping-cart",
+    path: "shopping-cart",
     component: LinkedSignalDemoComponent
   },
   {
