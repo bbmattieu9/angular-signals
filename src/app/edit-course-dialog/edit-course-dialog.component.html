@@ -15,9 +15,15 @@
     </textarea>
   </div>
 
-  <course-category-combobox [label]="'Course category'" 
-                            [(value)]="category"
-    />
+  <course-category-combobox
+
+    [label]="'Course category'"
+    [(value)]="category"
+  >
+    <div class="title" #title>
+      Course Category:
+    </div>
+  </course-category-combobox>
 
   <!-- <div class="form-control">
     <label>Course category:</label>
