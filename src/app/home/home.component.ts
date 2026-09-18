@@ -5,7 +5,7 @@ import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {CoursesCardListComponent} from "@app/courses-card-list/courses-card-list.component";
 import {MatDialog} from "@angular/material/dialog";
 import {MessagesService} from "@app/messages/messages.service";
-import {catchError, from, throwError} from "rxjs";
+import {catchError, from, interval, throwError} from "rxjs";
 import {toObservable, toSignal, outputToObservable, outputFromObservable} from "@angular/core/rxjs-interop";
 import {CoursesServiceWithFetch} from "@app/services/courses-fetch.service";
 import {openEditCourseDialog} from "@app/edit-course-dialog/edit-course-dialog.component";
@@ -112,5 +112,42 @@ export class HomeComponent implements OnInit {
       newCourse
     ];
     this.#courses.set(newCourses);
+  }
+
+  injector = inject(Injector);
+
+  onToObservableExample() {
+    const numbers = signal(0);
+    const numbers$ = toObservable(numbers, {
+      injector: this.injector
+    });
+    numbers$.subscribe((value) => {
+      console.log(`numbers$ emit: ${value}`);
+    });
+  }
+
+  coursesObs$ = from(this.coursesService.loadAllCourses());
+
+  onToSignalExample2() {
+    const courses = toSignal(this.coursesObs$, {
+      injector: this.injector
+    });
+    effect(() => {
+      console.log(`Courses`, courses());
+    }, {
+      injector: this.injector
+    });
+  }
+
+  onToSignalExample() {
+    const number$ = interval(1000);
+    const numbers = toSignal(number$, {
+      injector: this.injector
+    });
+    effect(() => {
+      console.log(`Numbers`, numbers());
+    }, {
+      injector: this.injector
+    });
   }
 }
