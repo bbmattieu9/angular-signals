@@ -9,7 +9,7 @@ This course repository is updated to Angular 22:
 
 # Installation pre-requisites
 
-IMPORTANT: Please use Node 24 (Long Term Support version).
+IMPORTANT: Please use Node 24.15.0 or a compatible Angular-supported version (`22.22.3+`, `24.15.0+`, or `26.0.0+`).
 
 # Installing the Angular CLI
 
