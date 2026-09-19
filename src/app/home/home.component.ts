@@ -5,7 +5,7 @@ import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {CoursesCardListComponent} from "@app/courses-card-list/courses-card-list.component";
 import {MatDialog} from "@angular/material/dialog";
 import {MessagesService} from "@app/messages/messages.service";
-import {catchError, from, interval, throwError} from "rxjs";
+import {catchError, from, interval, of, startWith, throwError} from "rxjs";
 import {toObservable, toSignal, outputToObservable, outputFromObservable} from "@angular/core/rxjs-interop";
 import {CoursesServiceWithFetch} from "@app/services/courses-fetch.service";
 import {openEditCourseDialog} from "@app/edit-course-dialog/edit-course-dialog.component";
@@ -126,23 +126,51 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  coursesObs$ = from(this.coursesService.loadAllCourses());
 
-  onToSignalExample2() {
-    const courses = toSignal(this.coursesObs$, {
+  onToSignalExample1() {
+    const coursesObs$ = from(this.coursesService.loadAllCourses()).pipe(
+      catchError(error => {
+        console.log(`Error caught in catchError():`, error)
+        throw error;
+      })
+    );
+    const courses = toSignal(coursesObs$, {
       injector: this.injector
     });
     effect(() => {
-      console.log(`Courses`, courses());
+      console.log(` Courses: `, courses());
     }, {
       injector: this.injector
     });
   }
 
   onToSignalExample() {
-    const number$ = interval(1000);
+    try {
+      const coursesObs$ = from(this.coursesService.loadAllCourses()).pipe(
+        catchError(error => {
+          console.log(`Error caught in catchError():`, error)
+          throw error;
+        })
+      );
+      const courses = toSignal(coursesObs$, {
+        injector: this.injector,
+        rejectErrors: true
+      });
+      effect(() => {
+        console.log(` Courses: `, courses());
+      }, {
+        injector: this.injector
+      });
+    } catch (error) {
+      console.log(`Error caught in catch block:`, error)
+    }
+  }
+
+  onToSignalExample2() {
+    const number$ = interval(1000).pipe(startWith(0));
     const numbers = toSignal(number$, {
-      injector: this.injector
+      injector: this.injector,
+      // requireSync: true
     });
     effect(() => {
       console.log(`Numbers`, numbers());
